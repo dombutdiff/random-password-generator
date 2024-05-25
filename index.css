@@ -40,7 +40,8 @@
 }
 .info span {
     display: block;
-    color: #6C63FF;
+    /* color: #6C63FF; */
+    color: black;
 }
 
 .description {
