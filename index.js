@@ -96,32 +96,34 @@ const passwordOne = document.querySelector(".first-password");
 const passwordTwo = document.querySelector(".second-password");
 const button = document.querySelector(".btn");
 
-button.addEventListener("click", () => {
+function generateRandomPassword(length) {
   let randomPassword = "";
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < length; i++) {
     randomPassword += characters[Math.floor(Math.random() * characters.length)];
   }
-  passwordOne.textContent = randomPassword;
-});
+  return randomPassword;
+}
 
 button.addEventListener("click", () => {
-  let randomPassword = "";
-  for (let i = 0; i < 15; i++) {
-    randomPassword += characters[Math.floor(Math.random() * characters.length)];
-  }
-  passwordTwo.textContent = randomPassword;
+  passwordOne.textContent = generateRandomPassword(16);
+  passwordTwo.textContent = generateRandomPassword(16);
 });
 
-function copyTextOne() {
-  const textOne = document.getElementById("copyTextOne").innerHTML;
-  navigator.clipboard.writeText(textOne);
-
-  alert("Text copied!");
+function copyTextAndClear(targetId, passwordElements) {
+  const text = document.getElementById(targetId).textContent;
+  navigator.clipboard.writeText(text);
+  if (text) {
+    alert("Copy to clipboard");
+    passwordElements.forEach((element) => {
+      element.innerText = "";
+    });
+  }
 }
 
-function copyTextTwo() {
-  const textTwo = document.getElementById("copyTextTwo").innerHTML;
-  navigator.clipboard.writeText(textTwo);
+document.getElementById("copyTextOne").addEventListener("click", () => {
+  copyTextAndClear("copyTextOne", [passwordOne, passwordTwo]);
+});
 
-  alert("Text copied!");
-}
+document.getElementById("copyTextTwo").addEventListener("click", () => {
+  copyTextAndClear("copyTextTwo", [passwordOne, passwordTwo]);
+});
