@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="./index.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css" integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="image-container">
+                <img class="image" src="./image/girl.svg" alt="image">
+            </div>
+
+            <div class="info">
+                <div class="description">
+                    <h1>Generate a <span> random password </span></h1>
+                    <!-- <p>Never use an insecure password</p> -->
+                </div>
+    
+                <div class="generate-btn">
+                    <button class="btn">Generate password</button>
+                </div>
+    
+                <div class="passwords">
+                    <div class="input">
+                        <p class="password-text first-password" id="copyTextOne" onclick="copyTextOne()"></p>
+                        <span class="tooltiptext">copy<i class="copy ri-file-copy-line"></i></span>
+                    </div>
+                    
+                    <div class="input">
+                        <p class="password-text second-password" id="copyTextTwo" onclick="copyTextTwo()"></p>
+                        <span class="tooltiptext">copy<i class="copy ri-file-copy-line"></i></span>
+                    </div>
+                </div>
+
+                <div class="quote">
+                    <p>Never use an insecure password...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./index.js"></script>
+</body>
+</html>
