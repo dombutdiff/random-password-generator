@@ -96,6 +96,60 @@ const passwordOne = document.querySelector(".first-password");
 const passwordTwo = document.querySelector(".second-password");
 const button = document.querySelector(".btn");
 
+// button.addEventListener("click", () => {
+//   let randomPassword = "";
+//   for (let i = 0; i < 16; i++) {
+//     randomPassword += characters[Math.floor(Math.random() * characters.length)];
+//   }
+//   passwordOne.textContent = randomPassword;
+// });
+
+// button.addEventListener("click", () => {
+//   let randomPassword = "";
+//   for (let i = 0; i < 15; i++) {
+//     randomPassword += characters[Math.floor(Math.random() * characters.length)];
+//   }
+//   passwordTwo.textContent = randomPassword;
+// });
+
+// function copyTextOne() {
+//   const textOne = document.getElementById("copyTextOne").innerHTML;
+//   navigator.clipboard.writeText(textOne);
+
+//   if (textOne) {
+//     alert("Text copied!");
+//     passwordOne.innerText = "";
+//   }
+
+// }
+
+// function copyTextTwo() {
+//   const textTwo = document.getElementById("copyTextTwo").innerHTML;
+//   navigator.clipboard.writeText(textTwo);
+
+//   if (textTwo) {
+//     alert("Text copied!");
+//     passwordTwo.innerText = "";
+//   }
+
+// }
+
+// function text() {
+//   if (textOne) {
+//     alert("Text copied!");
+//     passwordOne.innerText = ""; // Clear the text
+//   }
+
+//   if (textTwo) {
+//     alert("Text copied!");
+//     passwordTwo.innerText = "";
+//   }
+// }
+
+//   copyTextOne();
+//   copyTextTwo();
+// }
+
 function generateRandomPassword(length) {
   let randomPassword = "";
   for (let i = 0; i < length; i++) {
@@ -112,16 +166,14 @@ button.addEventListener("click", () => {
   passwordOne.textContent = "";
   passwordTwo.textContent = "";
 
-  // Add loading effect beside the button
-  const loadingElement = document.createElement("div");
-  loadingElement.textContent = "Loading...";
-  loadingElement.classList.add("loading-element");
-  button.parentNode.insertBefore(loadingElement, button.nextSibling);
+  // Show loading animation
+  const loadingElement = document.querySelector(".loading-element");
+  loadingElement.style.display = "block";
 
   // Add delay before generating new passwords
   setTimeout(() => {
-    // Remove the loading element
-    loadingElement.parentNode.removeChild(loadingElement);
+    // Hide loading animation
+    loadingElement.style.display = "none";
 
     // Generate passwords
     passwordOne.textContent = generateRandomPassword(16);
@@ -129,11 +181,22 @@ button.addEventListener("click", () => {
 
     // Re-enable the button after generating passwords
     button.disabled = false;
-  }, 500); // Delay in milliseconds (adjust as needed)
+  }, 700); // Delay in milliseconds (adjust as needed)
 });
 
+// function copyTextAndClear(targetId, passwordElements) {
+//   const text = document.getElementById(targetId).textContent;
+//   navigator.clipboard.writeText(text);
+//   if (text) {
+//     // alert("Copy to clipboard");
+//     passwordElements.forEach((element) => {
+//       element.innerText = "";
+//     });
+//   }
+// }
+
 function copyTextAndClear(targetId, passwordElements) {
-  const text = document.getElementById(targetId).textContent;
+  const text = document.getElementById(targetId).textContent.trim();
   navigator.clipboard
     .writeText(text)
     .then(() => {
@@ -167,6 +230,16 @@ function copyTextAndClear(targetId, passwordElements) {
       passwordElements.forEach((element) => {
         element.innerText = "";
       });
+
+      // Hide tooltip if text is empty
+      const tooltip = document.querySelector(
+        `#${targetId} .tooltiptext .input`
+      );
+      if (!text) {
+        tooltip.style.visibility = "hidden";
+      } else {
+        tooltip.style.visibility = "visible";
+      }
     })
     .catch((error) => {
       console.error("Failed to copy text: ", error);

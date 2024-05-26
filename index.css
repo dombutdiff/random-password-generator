@@ -55,6 +55,10 @@
 
 .generate-btn {
     margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 2rem;
 }
 
 .passwords {
@@ -83,6 +87,12 @@
     place-items: center;
     border-radius: 2px;
     position: relative;
+    transition: opacity 0.3s;
+}
+
+.input:hover {
+    opacity: 0.6;
+    cursor: pointer;
 }
 
 .password-text {
@@ -112,4 +122,75 @@
 
 .input:hover .tooltiptext {
     visibility: visible;
+}
+
+/* Hide tooltip if text is empty */
+.password-text:empty + .tooltiptext {
+    visibility: hidden;
+}
+
+.loading-element {
+    width: 20px;
+    height: 20px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #6C63FF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none; /* Initially hidden */
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
+  /* Default styles */
+
+/* Add your default styles here */
+
+/* Media query for screens smaller than 768px (typical mobile devices) */
+@media (max-width: 767px) {
+    .container {
+        flex-direction: column;
+        column-gap: 0;
+    }
+    
+    .image-container {
+        width: 70%;
+        margin-bottom: 2rem;
+    }
+
+    .info {
+        padding: 2rem;
+    }
+
+    .generate-btn {
+        flex-direction: row;
+        align-items: center;
+        row-gap: 1rem;
+    }
+
+    .passwords {
+        flex-direction: column;
+        align-items: center;
+        row-gap: 1rem;
+    }
+
+    .input {
+        width: 15rem;
+        height: 1rem;
+        padding: 0.5rem 1rem;
+        text-align: center;
+        margin-bottom: -0.5rem ;
+    }
+
+    .password-text {
+        font-size: 12px;
+    }
+
+    .tooltiptext {
+        width: auto;
+        padding: 0.5rem;
+    }
 }
