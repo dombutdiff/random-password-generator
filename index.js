@@ -105,19 +105,72 @@ function generateRandomPassword(length) {
 }
 
 button.addEventListener("click", () => {
-  passwordOne.textContent = generateRandomPassword(16);
-  passwordTwo.textContent = generateRandomPassword(16);
+  // Disable the button to prevent multiple clicks
+  button.disabled = true;
+
+  // Clear existing passwords
+  passwordOne.textContent = "";
+  passwordTwo.textContent = "";
+
+  // Add loading effect beside the button
+  const loadingElement = document.createElement("div");
+  loadingElement.textContent = "Loading...";
+  loadingElement.classList.add("loading-element");
+  button.parentNode.insertBefore(loadingElement, button.nextSibling);
+
+  // Add delay before generating new passwords
+  setTimeout(() => {
+    // Remove the loading element
+    loadingElement.parentNode.removeChild(loadingElement);
+
+    // Generate passwords
+    passwordOne.textContent = generateRandomPassword(16);
+    passwordTwo.textContent = generateRandomPassword(16);
+
+    // Re-enable the button after generating passwords
+    button.disabled = false;
+  }, 500); // Delay in milliseconds (adjust as needed)
 });
 
 function copyTextAndClear(targetId, passwordElements) {
   const text = document.getElementById(targetId).textContent;
-  navigator.clipboard.writeText(text);
-  if (text) {
-    alert("Copy to clipboard");
-    passwordElements.forEach((element) => {
-      element.innerText = "";
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      // Create a new element for displaying the "Copied" text
+      const copiedPopup = document.createElement("div");
+      copiedPopup.textContent = "Copied";
+      copiedPopup.classList.add("copied-popup");
+
+      // Position the element in the top of the screen
+      copiedPopup.style.position = "fixed";
+      copiedPopup.style.top = "10%";
+      copiedPopup.style.left = "50%";
+      copiedPopup.style.transform = "translate(-50%, -50%)";
+      copiedPopup.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+      copiedPopup.style.color = "#fff";
+      copiedPopup.style.padding = "10px 20px";
+      copiedPopup.style.borderRadius = "5px";
+      copiedPopup.style.zIndex = "9999";
+
+      // Append the element to the body
+      setTimeout(() => {
+        document.body.appendChild(copiedPopup);
+      }, 100);
+
+      // Remove the element after 2 seconds
+      setTimeout(() => {
+        document.body.removeChild(copiedPopup);
+      }, 2000);
+
+      // Clear password elements
+      passwordElements.forEach((element) => {
+        element.innerText = "";
+      });
+    })
+    .catch((error) => {
+      console.error("Failed to copy text: ", error);
     });
-  }
 }
 
 document.getElementById("copyTextOne").addEventListener("click", () => {
